@@ -1,0 +1,42 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'com.android.tools.build:gradle:2.3.+'
+  }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+  compileSdkVersion 26
+  buildToolsVersion "26.0.1"
+
+  defaultConfig {
+    minSdkVersion 21
+    targetSdkVersion 22
+    versionCode 1
+    versionName "1.0"
+    ndk{
+      abiFilters 'armeabi-v7a'
+    }
+  }
+  lintOptions {
+    abortOnError false
+  }
+}
+
+repositories {
+  mavenCentral()
+  flatDir {
+    dirs 'libs'
+  }
+}
+
+dependencies {
+  compile "com.facebook.react:react-native:+"
+  compile fileTree(dir: "libs", include: ["*.jar"])
+  implementation(name:'SangforSDK',ext:'aar')
+}
