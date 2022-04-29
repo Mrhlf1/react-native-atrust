@@ -18,13 +18,10 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 
-import com.sangfor.ssl.IVpnDelegate;
-import com.sangfor.ssl.SFException;
-import com.sangfor.ssl.SangforAuthManager;
-import com.sangfor.ssl.common.ErrorCode;
-import com.sangfor.ssl.BaseMessage;
-import com.sangfor.ssl.IConstants.VPNMode;
-import com.sangfor.ssl.LoginResultListener;
+import com.sangfor.sdk.base.SFAuthResultListener;
+import com.sangfor.sdk.base.SFAuthType;
+import com.sangfor.sdk.base.SFBaseMessage;
+
 
 import com.sangfor.atrust.JNIBridge.JniTool;
 import com.sangfor.sdk.Internal.LoadLibraryHelper;
@@ -39,50 +36,35 @@ import com.sangfor.sdk.utils.SFLogN;
 /**
  * Created by m2mbob on 16/5/6.
  */
-public class VpnModule extends ReactContextBaseJavaModule implements LifecycleEventListener, LoginResultListener {
+public class AtrustVpnModule extends ReactContextBaseJavaModule implements LifecycleEventListener , SFAuthResultListener  {
 
     private static Promise PROMISE;
-    private boolean inited;
-    private String mode;
-    private String host;
-    private int port;
+    private String TAG = "LoginAtrust";
 
-    public VpnModule(ReactApplicationContext reactContext) {
+    public AtrustVpnModule(ReactApplicationContext reactContext) {
         super(reactContext);
         reactContext.addLifecycleEventListener(this);
     }
 
     @ReactMethod
-    public void init(final String mode, final Promise promise) {
+    public void init(final Promise promise) {
         PROMISE = promise;
         AsyncTask task = new AsyncTask<Object, Object, Boolean>() {
-
           @Override
       		protected Boolean doInBackground(Object... params) {
       			return true;
       		}
-
           @Override
       		protected void onPostExecute(Boolean result) {
             //SangforAuthManager sfAuth = SangforAuthManager.getInstance();
-            SFSDKMode sdkMode = SFSDKMode.MODE_VPN_SANDBOX;
+            SFSDKMode sdkMode = SFSDKMode.MODE_VPN;
             try {
-                if (!inited) {
-                    sdkMode.setLoginResultListener(VpnModule.this);
-                    inited = true;
-                }
-                // String ip = host.replaceAll("(?i)https://", "").replaceAll("(?i)http://", "");
-                // VpnModule.this.host = host;
-                // VpnModule.this.mode = mode;
-                // VpnModule.this.port = port;
-                // WritableMap map = Arguments.createMap();
-                // map.putString("success", "1");
-                // promise.resolve(map);
-
                 int sdkFlags =  SFSDKFlags.FLAGS_HOST_APPLICATION;      //表明是单应用或者是主应用
                 sdkFlags |= SFSDKFlags.FLAGS_VPN_MODE_TCP;              //表明使用VPN功能中的TCP模式
                 SFMobileSecuritySDK.getInstance().initSDK(getReactApplicationContext(), sdkMode, sdkFlags, null);//初始化SDK
-
+                WritableMap map = Arguments.createMap();
+                map.putString("success", "1");
+                promise.resolve(map);
             } catch (Exception e) {
                 promise.reject(e.getMessage(), e);
             }
@@ -92,14 +74,10 @@ public class VpnModule extends ReactContextBaseJavaModule implements LifecycleEv
     }
 
     @ReactMethod
-    public void init(final Promise promise) {
-        this.init("MODE_VPN", promise);
-    }
-
-    @ReactMethod
     public void login(final String url , final String username, final String password,
                     final Promise promise) {
         PROMISE = promise;
+        SFMobileSecuritySDK.getInstance().setAuthResultListener(this);
         AsyncTask task = new AsyncTask<Object, Object, Boolean>() {
 
             @Override
@@ -109,12 +87,12 @@ public class VpnModule extends ReactContextBaseJavaModule implements LifecycleEv
 
             @Override
         		protected void onPostExecute(Boolean result) {
+
               try{
-                // SangforAuthManager sfAuth = SangforAuthManager.getInstance();
-                // sfAuth.startPasswordAuthLogin(getCurrentActivity().
-                //   getApplication(), getCurrentActivity(), VPNMode.L3VPN,
-                //   new URL(VpnModule.this.host + ":" + VpnModule.this.port), username, password);
                 SFMobileSecuritySDK.getInstance().startPasswordAuth(url, username, password);
+                // WritableMap map = Arguments.createMap();
+                // map.putString("success", "111");
+                // promise.resolve(map);
                 } catch(Exception e) {
                   PROMISE.reject("failed", e.getMessage());
                 }
@@ -137,7 +115,7 @@ public class VpnModule extends ReactContextBaseJavaModule implements LifecycleEv
 
             @Override
             protected void onPostExecute(Boolean result) {
-                SangforAuthManager.getInstance().vpnLogout();
+                //SangforAuthManager.getInstance().vpnLogout();
             }
         };
         task.execute();
@@ -145,21 +123,7 @@ public class VpnModule extends ReactContextBaseJavaModule implements LifecycleEv
 
     @Override
     public String getName() {
-        return "RNSangforVpn";
-    }
-
-    @Override
-  	public void onLoginProcess(int nextAuthType,  BaseMessage message) {
-      if (message != null && message.getErrorStr() != null && message.getErrorStr().length() > 0) {
-        this.onLoginFailed(message.getErrorCode(), message.getErrorStr());
-      } else {
-        this.resolve(nextAuthType + "");
-      }
-    }
-
-    @Override
-  	public void onLoginSuccess() {
-      this.resolve("1");
+        return "RNSangforAtrustVpn";
     }
 
     private void resolve(String message) {
@@ -172,12 +136,25 @@ public class VpnModule extends ReactContextBaseJavaModule implements LifecycleEv
     }
 
     @Override
-  	public void onLoginFailed(ErrorCode errorCode, String errorStr) {
-      if (PROMISE != null) {
-        PROMISE.reject("failed", errorStr);
-        PROMISE = null;
-      }
+    public void onAuthProgress(SFAuthType nextAuthType, SFBaseMessage message) {
+        SFLogN.info(TAG, "need next auth, authType: " + nextAuthType.name());
+        //dismissWaitingDialog();
+        //显示下一步认证UI界面
+        //showAuthDialog(nextAuthType, message);
     }
+
+    @Override
+    public void onAuthSuccess(final SFBaseMessage message) {
+        //SFLogN.info(TAG, "auth success");
+        this.resolve("1");
+    }
+
+    @Override
+    public void onAuthFailed(final SFAuthType authType, final SFBaseMessage message) {
+        //SFLogN.error2(TAG, "auth failed", "errMsg: " + message.mErrStr + ",authType: " + authType.name());
+        this.resolve("errMsg: " + message.mErrStr);
+    }
+
 
     @Override
     public void onHostResume() {

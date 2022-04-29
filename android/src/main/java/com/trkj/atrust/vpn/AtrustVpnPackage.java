@@ -13,12 +13,12 @@ import java.util.List;
 /**
  * Created by m2mbob on 16/5/6.
  */
-public class VpnPackage implements ReactPackage {
+public class AtrustVpnPackage implements ReactPackage {
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new VpnModule(reactContext));
+        modules.add(new AtrustVpnModule(reactContext));
         return modules;
     }
 
