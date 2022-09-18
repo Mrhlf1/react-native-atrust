@@ -106,6 +106,7 @@ public class AtrustVpnModule extends ReactContextBaseJavaModule implements Lifec
         if (promise != null) {
             PROMISE = promise;
         }
+        //SFMobileSecuritySDK.getInstance().registerLogoutListener(this);
         AsyncTask task = new AsyncTask<Object, Object, Boolean>() {
 
             @Override
@@ -116,6 +117,7 @@ public class AtrustVpnModule extends ReactContextBaseJavaModule implements Lifec
             @Override
             protected void onPostExecute(Boolean result) {
                 //SangforAuthManager.getInstance().vpnLogout();
+                SFMobileSecuritySDK.getInstance().logout();
             }
         };
         task.execute();
