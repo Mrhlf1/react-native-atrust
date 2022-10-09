@@ -42,14 +42,14 @@
  认证过程回调
  nextAuthType为VPNAuthTypeSms、VPNAuthTypeRadius、VPNAuthTypeForceUpdatePwd
  这三个类型的中的一个时，msg才不为空，具体的类参考上面对信息类的定义
- 
+
  @param nextAuthType 下个认证类型
  @param msg 认证需要的信息类
  */
 - (void)onLoginProcess:(VPNAuthType)nextAuthType message:(BaseMessage *)msg
 {
     if (nextAuthType != VPNAuthTypeNone) {
-        _resolve(@{@"success": [NSString stringWithFormat:@"%lu", nextAuthType]});
+        _resolve(@{@"result": [NSString stringWithFormat:@"%lu", nextAuthType]});
     }
 }
 
@@ -58,7 +58,7 @@
  */
 - (void)onLoginSuccess
 {
-    _resolve(@{@"success": @"1"});
+    _resolve(@{@"result": @"success"});
 }
 
 - (NSDictionary *)constantsToExport
@@ -95,7 +95,7 @@ RCT_REMAP_METHOD(login, username:(NSString *)username password:(NSString *)passw
     _resolve = resolve;
     _reject = reject;
     [self.helper startPasswordAuthLogin:_sdkMode vpnAddress:_url username:username password:password];
-    
+
 }
 
 RCT_REMAP_METHOD(logout, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
