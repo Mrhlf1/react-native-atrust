@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ChangeLogs>
+	<ChangeLog Version="2.2.6.2" SubVersion="" Date="2022-07-12">
+		<ChangeList>封装SDK发布</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.2.6.2" SubVersion="" Date="2022-07-05">
+		<ChangeList>新架构aTrust bug修复</ChangeList>
+		<ChangeList>认证流程bug、数据迁移bug</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.2.6.1" SubVersion="" Date="2022-06-24">
+		<ChangeList>重构aTrust上架</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.3.0.2.10" SubVersion="" Date="2022-03-31">
+		<ChangeList>新架构sdk</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.3.0.2.1" SubVersion="" Date="2022-03-31">
+		<ChangeList>封装aTrust app子应用支持单点登录</ChangeList>
+		<ChangeList>支持UEM分布式集群</ChangeList>
+		<ChangeList>控制台获取远程终端日志</ChangeList>
+		<ChangeList>SPA一人一码</ChangeList>
+		<ChangeList>SPA支持免域名</ChangeList>
+		<ChangeList>移动端支持国密</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.3.0.1.1" SubVersion="" Date="2022-03-15">
+		<ChangeList>支持网络隔离</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.2.0.12.2" SubVersion="" Date="2022-01-12">
+		<ChangeList>SDP、VPN二合一</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.2.0.12.1" SubVersion="" Date="2021-12-30">
+		<ChangeList>封装子应用支持应用锁</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.2.0.11.1" SubVersion="" Date="2021-12-27">
+		<ChangeList>封装应用支持第三方服务器下载</ChangeList>
+		<ChangeList>支持udp spa</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.2.0.10.2" SubVersion="" Date="2021-12-23">
+		<ChangeList>SDP SDK兼容Arm64</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.2.0.7.1" SubVersion="" Date="2021-09-27">
+		<ChangeList>H5优化</ChangeList>
+		<ChangeList>遗留TD解决</ChangeList>
+	</ChangeLog>
+	<ChangeLog Version="2.2.0.6.1" SubVersion="" Date="2021-08-31">
+		<ChangeList>Android sdk支持完整沙箱策略</ChangeList>
+		<ChangeList>iOS sdk支持后台模糊、分享隔离、剪切板隔离</ChangeList>
+	</ChangeLog>
+</ChangeLogs>
