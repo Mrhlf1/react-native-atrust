@@ -100,7 +100,7 @@ RCT_REMAP_METHOD(init, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 //    self.helper = SangforAuthManager.getInstance;
 //    self.helper.delegate = self;
 //    _resolve(@{@"success": @"1"});
-    
+
     SFSDKMode mode = SFSDKModeSupportVpnSandbox;
     [[SFUemSDK sharedInstance] initSDK:mode
                                  flags:SFSDKFlagsHostApplication
@@ -132,7 +132,7 @@ RCT_REMAP_METHOD(SecondLogin,code:(NSString *)code
     _reject = reject;
     //    [self.helper startPasswordAuthLogin:_sdkMode vpnAddress:url username:username password:password];
     [[SFUemSDK sharedInstance] doSecondaryAuth:SFAuthTypeSMS data:@{kAuthKeySMS:code}];
-    
+
 }
 
 RCT_REMAP_METHOD(regetSmsCode,resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
@@ -149,6 +149,6 @@ RCT_REMAP_METHOD(regetSmsCode,resolver:(RCTPromiseResolveBlock)resolve rejecter:
             }
         }
     }];
-    
+
 }
 @end
