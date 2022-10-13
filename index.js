@@ -5,7 +5,7 @@ import {
     NativeModules,
 } from 'react-native';
 
-const vpn = NativeModules.RNSangforAtrustVpn;
+const vpn = NativeModules.RNSangforVpn;
 export default vpn;
 // export const Mode = {
 //   EasyApp: 0,

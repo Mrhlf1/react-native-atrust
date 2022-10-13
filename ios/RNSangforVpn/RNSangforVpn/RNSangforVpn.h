@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
-#import "SangforAuthHeader.h"
-#import "SangforAuthManager.h"
-
-@interface RNSangforVpn : NSObject<RCTBridgeModule, SangforAuthDelegate>
-
-@property (retain, strong)SangforAuthManager *helper;
+// #import "SangforAuthHeader.h"
+// #import "SangforAuthManager.h"
+//
+// @interface RNSangforVpn : NSObject<RCTBridgeModule, SangforAuthDelegate>
+//
+// @property (retain, strong)SangforAuthManager *helper;
+#import <SangforSDK/SFUemSDK.h>
+@interface RNSangforVpn : NSObject<RCTBridgeModule, SFAuthResultDelegate>
 
 @end
