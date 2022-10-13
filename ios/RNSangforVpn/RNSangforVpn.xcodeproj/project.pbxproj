@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E2B34ED28F65083001B71D1 /* SangforSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E2B34EC28F65083001B71D1 /* SangforSDK.framework */; };
 		6469E5141FCFA81F00D91357 /* RNSangforVpn.m in Sources */ = {isa = PBXBuildFile; fileRef = 6469E5131FCFA81F00D91357 /* RNSangforVpn.m */; };
 		6469E5151FCFA81F00D91357 /* RNSangforVpn.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6469E5121FCFA81F00D91357 /* RNSangforVpn.h */; };
-		6469E5281FCFA86500D91357 /* libSangforSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6469E5271FCFA86500D91357 /* libSangforSdk.a */; };
 		64864D941FE7810B00966D50 /* RCTConvert+SangforVpn.m in Sources */ = {isa = PBXBuildFile; fileRef = 64864D931FE7810B00966D50 /* RCTConvert+SangforVpn.m */; };
 /* End PBXBuildFile section */
 
@@ -149,6 +149,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1E2B34EC28F65083001B71D1 /* SangforSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SangforSDK.framework; path = SANGFOR/SangforSDK.framework; sourceTree = "<group>"; };
 		6469E50F1FCFA81F00D91357 /* libRNSangforVpn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNSangforVpn.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6469E5121FCFA81F00D91357 /* RNSangforVpn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNSangforVpn.h; sourceTree = "<group>"; };
 		6469E5131FCFA81F00D91357 /* RNSangforVpn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNSangforVpn.m; sourceTree = "<group>"; };
@@ -168,7 +169,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6469E5281FCFA86500D91357 /* libSangforSdk.a in Frameworks */,
+				1E2B34ED28F65083001B71D1 /* SangforSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +179,7 @@
 		6469E5061FCFA81F00D91357 = {
 			isa = PBXGroup;
 			children = (
+				1E2B34EC28F65083001B71D1 /* SangforSDK.framework */,
 				6469E51C1FCFA83C00D91357 /* SangforSdk */,
 				6469E5111FCFA81F00D91357 /* RNSangforVpn */,
 				6469E5101FCFA81F00D91357 /* Products */,
@@ -551,6 +553,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SANGFOR",
+				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../react-native/React/**";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -568,6 +574,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SANGFOR",
+				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../react-native/React/**";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
