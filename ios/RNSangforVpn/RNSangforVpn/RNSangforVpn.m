@@ -34,11 +34,15 @@
 
 @param error 错误信息
 */
-- (void)onLoginFailed:(NSError *)error
+- (void)onAuthFailed:(BaseMessage *)error
 {
-    _reject([NSString stringWithFormat:@"%ld", error.code], error.description, error);
+    _reject([NSString stringWithFormat:@"%ld", error.errCode], error.errStr, error);
 }
-
+// - (void)onAuthFailed:(BaseMessage *)msg {
+//     NSLog(@"BasicSceneViewController onLoginFailed:%@", msg);
+//     [MBProgressHUD hideHUDForView:self.view animated:YES];
+//     [AlertUtil showAlert:@"认证失败" message:[NSString stringWithFormat:@"%@,code=%ld",msg.errStr,(long)msg.errCode]];
+// }
 /*!
  认证过程回调
  nextAuthType为VPNAuthTypeSms、VPNAuthTypeRadius、VPNAuthTypeForceUpdatePwd
@@ -54,7 +58,7 @@
 //    }
 //}
 
-- (void)onLoginProcess:(SFAuthType)nextAuthType message:(BaseMessage *)msg
+- (void)onAuthProcess:(SFAuthType)nextAuthType message:(BaseMessage *)msg
 {
     if (nextAuthType != SFAuthTypeNone) {
         _resolve(@{@"result": [NSString stringWithFormat:@"%lu", nextAuthType]});
@@ -64,43 +68,20 @@
 /*!
  认证成功回调
  */
-- (void)onLoginSuccess
+- (void)onAuthSuccess
 {
     _resolve(@{@"result": @"success"});
 }
 
-//- (NSDictionary *)constantsToExport
-//{
-//    return @{@"L3VPN" : @(VPNModeL3VPN)};
-//};
-
 RCT_EXPORT_MODULE();
 
-//RCT_REMAP_METHOD(init, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
-//{
-////    _resolve = resolve;
-////    _reject = reject;
-////    _sdkMode = VPNModeL3VPN;
-////    _url = [NSURL URLWithString:[NSString stringWithFormat:@"%@:%d", host, port]];
-////    self.helper = SangforAuthManager.getInstance;
-////    self.helper.delegate = self;
-////    _resolve(@{@"success": @"1"});
-//    SFSDKMode mode = SFSDKModeSupportVpnSandbox;
-//    [[SFUemSDK sharedInstance] initSDK:mode
-//                                 flags:SFSDKFlagsHostApplication
-//                                 extra:nil];
-//}
 
-RCT_REMAP_METHOD(init, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(
+   init,
+   resolver:(RCTPromiseResolveBlock)resolve
+   rejecter:(RCTPromiseRejectBlock)reject)
 {
-//    _resolve = resolve;
-//    _reject = reject;
-//    _sdkMode = mode;
-//    _url = [NSURL URLWithString:[NSString stringWithFormat:@"%@:%d", host, port]];
-//    self.helper = SangforAuthManager.getInstance;
-//    self.helper.delegate = self;
-//    _resolve(@{@"success": @"1"});
-
+    _resolve = resolve;
     SFSDKMode mode = SFSDKModeSupportVpnSandbox;
     [[SFUemSDK sharedInstance] initSDK:mode
                                  flags:SFSDKFlagsHostApplication
@@ -108,19 +89,23 @@ RCT_REMAP_METHOD(init, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     _resolve(@{@"success": @"1"});
 }
 
-RCT_REMAP_METHOD(login, url:(NSString *)url username:(NSString *)username password:(NSString *)password resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(login, url:(NSString *)url username:(NSString *)username password:(NSString *)password resolvers:(RCTPromiseResolveBlock)resolves
+rejecters:(RCTPromiseRejectBlock)rejects)
 {
-    _resolve = resolve;
-    _reject = reject;
+   _resolve = resolves;
+   _reject = rejects;
 //    [self.helper startPasswordAuthLogin:_sdkMode vpnAddress:url username:username password:password];
     [[SFUemSDK sharedInstance] startPasswordAuth:url userName:username password:password];
 
 }
 
-RCT_REMAP_METHOD(logout, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(
+ logout,
+ resolvers:(RCTPromiseResolveBlock)resolves
+ rejecters:(RCTPromiseRejectBlock)rejects)
 {
-    _resolve = resolve;
-    _reject = reject;
+    _resolve = resolves;
+    _reject = rejects;
 //    [self.helper vpnLogout];
     [[SFUemSDK sharedInstance] registerLogoutDelegate:self];
 }
@@ -135,20 +120,20 @@ RCT_REMAP_METHOD(SecondLogin,code:(NSString *)code
 
 }
 
-RCT_REMAP_METHOD(regetSmsCode,resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(regetSmsCode,resolversms:(RCTPromiseResolveBlock)resolversms rejectersms:(RCTPromiseRejectBlock)rejectersms)
 {
     /**
      * 短信验证码过期后，需要调用重新获取短信验证码
      */
-    [[SFUemSDK sharedInstance].auth regetSmsCode:^(SmsMessage * _Nullable message, NSError * _Nullable error) {
-        if (error) {
-            [self showToast:[NSString stringWithFormat:@"%@",error]];
-        } else {
-            if (message.countDown > 0) {
-                [bAlertView startTimer:countDown];
-            }
-        }
-    }];
+//    [[SFUemSDK sharedInstance].auth regetSmsCode:^(SmsMessage * _Nullable message, NSError * _Nullable error) {
+//        if (error) {
+//            [self showToast:[NSString stringWithFormat:@"%@",error]];
+//        } else {
+//            if (message.countDown > 0) {
+//                [bAlertView startTimer:countDown];
+//            }
+//        }
+//    }];
 
 }
 @end

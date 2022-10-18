@@ -7,11 +7,11 @@
 //
 
 #import "RCTConvert+SangforVpn.h"
-#import "SangforAuthHeader.h"
+// #import "SangforAuthHeader.h"
 
 @implementation RCTConvert (SangforVpn)
 
-    RCT_ENUM_CONVERTER(VPNMode, (@{@"L3VPN" : @(VPNModeL3VPN)}),
-                       VPNModeL3VPN, integerValue);
+    // RCT_ENUM_CONVERTER(VPNMode, (@{@"L3VPN" : @(VPNModeL3VPN)}),
+    //                    VPNModeL3VPN, integerValue);
 
 @end

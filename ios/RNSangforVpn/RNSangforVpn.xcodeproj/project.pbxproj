@@ -157,11 +157,8 @@
 		6469E5591FCFA9D200D91357 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../../../../../workspace/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		6469E61E1FCFBC4900D91357 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6469E6201FCFBCAF00D91357 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
-		647073AD20C68EC900E73357 /* SangforAuthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SangforAuthManager.h; sourceTree = "<group>"; };
-		647073BD20C68ECA00E73357 /* SangforAuthHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SangforAuthHeader.h; sourceTree = "<group>"; };
 		64864D921FE7810B00966D50 /* RCTConvert+SangforVpn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+SangforVpn.h"; sourceTree = "<group>"; };
 		64864D931FE7810B00966D50 /* RCTConvert+SangforVpn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+SangforVpn.m"; sourceTree = "<group>"; };
-		64F4C5FE215F61B000652D22 /* errheader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = errheader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,7 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				1E2B34EC28F65083001B71D1 /* SangforSDK.framework */,
-				6469E51C1FCFA83C00D91357 /* SangforSdk */,
 				6469E5111FCFA81F00D91357 /* RNSangforVpn */,
 				6469E5101FCFA81F00D91357 /* Products */,
 				6469E5261FCFA86500D91357 /* Frameworks */,
@@ -204,16 +200,6 @@
 				64864D931FE7810B00966D50 /* RCTConvert+SangforVpn.m */,
 			);
 			path = RNSangforVpn;
-			sourceTree = "<group>";
-		};
-		6469E51C1FCFA83C00D91357 /* SangforSdk */ = {
-			isa = PBXGroup;
-			children = (
-				64F4C5FE215F61B000652D22 /* errheader.h */,
-				647073BD20C68ECA00E73357 /* SangforAuthHeader.h */,
-				647073AD20C68EC900E73357 /* SangforAuthManager.h */,
-			);
-			path = SangforSdk;
 			sourceTree = "<group>";
 		};
 		6469E5261FCFA86500D91357 /* Frameworks */ = {
