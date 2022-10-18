@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1E2B34ED28F65083001B71D1 /* SangforSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E2B34EC28F65083001B71D1 /* SangforSDK.framework */; };
+		1EA328B028F7F69C008DD165 /* SangforSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA328AF28F7F69C008DD165 /* SangforSDK.framework */; platformFilter = ios; };
 		6469E5141FCFA81F00D91357 /* RNSangforVpn.m in Sources */ = {isa = PBXBuildFile; fileRef = 6469E5131FCFA81F00D91357 /* RNSangforVpn.m */; };
 		6469E5151FCFA81F00D91357 /* RNSangforVpn.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6469E5121FCFA81F00D91357 /* RNSangforVpn.h */; };
 		64864D941FE7810B00966D50 /* RCTConvert+SangforVpn.m in Sources */ = {isa = PBXBuildFile; fileRef = 64864D931FE7810B00966D50 /* RCTConvert+SangforVpn.m */; };
@@ -150,6 +151,7 @@
 
 /* Begin PBXFileReference section */
 		1E2B34EC28F65083001B71D1 /* SangforSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SangforSDK.framework; path = SANGFOR/SangforSDK.framework; sourceTree = "<group>"; };
+		1EA328AF28F7F69C008DD165 /* SangforSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SangforSDK.framework; path = SANGFOR/SangforSDK.framework; sourceTree = "<group>"; };
 		6469E50F1FCFA81F00D91357 /* libRNSangforVpn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNSangforVpn.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6469E5121FCFA81F00D91357 /* RNSangforVpn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNSangforVpn.h; sourceTree = "<group>"; };
 		6469E5131FCFA81F00D91357 /* RNSangforVpn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNSangforVpn.m; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EA328B028F7F69C008DD165 /* SangforSDK.framework in Frameworks */,
 				1E2B34ED28F65083001B71D1 /* SangforSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -205,6 +208,7 @@
 		6469E5261FCFA86500D91357 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1EA328AF28F7F69C008DD165 /* SangforSDK.framework */,
 				6469E6201FCFBCAF00D91357 /* NetworkExtension.framework */,
 				6469E61E1FCFBC4900D91357 /* AdSupport.framework */,
 				6469E5591FCFA9D200D91357 /* React.xcodeproj */,
