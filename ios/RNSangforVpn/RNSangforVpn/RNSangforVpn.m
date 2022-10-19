@@ -14,7 +14,6 @@
 
 @interface RNSangforVpn()
 {
-//    VPNMode _sdkMode;
     NSURL *_url;
     NSString *_smsCode;
     RCTPromiseResolveBlock _resolve;
@@ -36,13 +35,9 @@
 */
 - (void)onAuthFailed:(BaseMessage *)error
 {
-    _reject([NSString stringWithFormat:@"%ld", error.errCode], error.errStr, error);
+    _resolve(@{@"result": @"failed"});
 }
-// - (void)onAuthFailed:(BaseMessage *)msg {
-//     NSLog(@"BasicSceneViewController onLoginFailed:%@", msg);
-//     [MBProgressHUD hideHUDForView:self.view animated:YES];
-//     [AlertUtil showAlert:@"认证失败" message:[NSString stringWithFormat:@"%@,code=%ld",msg.errStr,(long)msg.errCode]];
-// }
+
 /*!
  认证过程回调
  nextAuthType为VPNAuthTypeSms、VPNAuthTypeRadius、VPNAuthTypeForceUpdatePwd
@@ -51,17 +46,16 @@
  @param nextAuthType 下个认证类型
  @param msg 认证需要的信息类
  */
-//- (void)onLoginProcess:(VPNAuthType)nextAuthType message:(BaseMessage *)msg
-//{
-//    if (nextAuthType != VPNAuthTypeNone) {
-//        _resolve(@{@"result": [NSString stringWithFormat:@"%lu", nextAuthType]});
-//    }
-//}
 
 - (void)onAuthProcess:(SFAuthType)nextAuthType message:(BaseMessage *)msg
 {
-    if (nextAuthType != SFAuthTypeNone) {
-        _resolve(@{@"result": [NSString stringWithFormat:@"%lu", nextAuthType]});
+    switch (nextAuthType) {
+        case SFAuthTypeSMS:
+            _resolve(@{@"result": @"AUTH_TYPE_SMS"});
+            break;
+        default:
+            _resolve(@{@"result": @"暂不支持此种认证类型"});
+            break;
     }
 }
 
@@ -95,7 +89,9 @@ rejecters:(RCTPromiseRejectBlock)rejects)
    _resolve = resolves;
    _reject = rejects;
 //    [self.helper startPasswordAuthLogin:_sdkMode vpnAddress:url username:username password:password];
-    [[SFUemSDK sharedInstance] startPasswordAuth:url userName:username password:password];
+    [[SFUemSDK sharedInstance] setAuthResultDelegate:self];
+    NSURL *vpnUrl = [NSURL URLWithString:url];
+    [[SFUemSDK sharedInstance] startPasswordAuth:vpnUrl userName:username password:password];
 
 }
 
@@ -108,6 +104,8 @@ RCT_REMAP_METHOD(
     _reject = rejects;
 //    [self.helper vpnLogout];
     [[SFUemSDK sharedInstance] registerLogoutDelegate:self];
+    
+    [[SFUemSDK sharedInstance] logout];
 }
 
 RCT_REMAP_METHOD(SecondLogin,code:(NSString *)code
@@ -116,6 +114,8 @@ RCT_REMAP_METHOD(SecondLogin,code:(NSString *)code
     _resolve = resolve;
     _reject = reject;
     //    [self.helper startPasswordAuthLogin:_sdkMode vpnAddress:url username:username password:password];
+    [[SFUemSDK sharedInstance] setAuthResultDelegate:self];
+    
     [[SFUemSDK sharedInstance] doSecondaryAuth:SFAuthTypeSMS data:@{kAuthKeySMS:code}];
 
 }
@@ -125,15 +125,13 @@ RCT_REMAP_METHOD(regetSmsCode,resolversms:(RCTPromiseResolveBlock)resolversms re
     /**
      * 短信验证码过期后，需要调用重新获取短信验证码
      */
-//    [[SFUemSDK sharedInstance].auth regetSmsCode:^(SmsMessage * _Nullable message, NSError * _Nullable error) {
-//        if (error) {
-//            [self showToast:[NSString stringWithFormat:@"%@",error]];
-//        } else {
-//            if (message.countDown > 0) {
-//                [bAlertView startTimer:countDown];
-//            }
-//        }
-//    }];
+    [[SFUemSDK sharedInstance].auth regetSmsCode:^(SmsMessage * _Nullable message, NSError * _Nullable error) {
+        if (error) {
+            _resolve(@{@"result": @"failed"});
+        } else {
+            _resolve(@{@"result": @"success"});
+        }
+    }];
 
 }
 @end
